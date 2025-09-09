@@ -1,6 +1,6 @@
 import os
 import sys
-from toolkit_dslr.graph_utils import draw_scatter_plot 
+from toolkit_dslr.graph_utils import draw_scatter_plot
 
 
 def main():

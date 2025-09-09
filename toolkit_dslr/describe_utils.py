@@ -1,8 +1,8 @@
-import sys
 import pandas as pd
 from toolkit_dslr.math_utils import (calculate_count, calculate_mean,
-									 calculate_std, find_min, find_max,
-									 calculate_percentile)
+                                     calculate_std, find_min, find_max,
+                                     calculate_percentile)
+
 
 def describe_column(column: pd.Series) -> pd.Series:
     """
