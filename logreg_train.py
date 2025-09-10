@@ -48,12 +48,14 @@ def LogisticRegression(file: str):
 
     for house in houses:
         y_house = y_houses[house]
-        
         scaler = StandardScaler()
         X = scaler.fit_transform(X)
         
         model = LogisticRegressionScratch(learning_rate=0.1, iterations=1000)
         weights, bias = model.fit(X, y_house)
+
+        print("type bias:", type(bias))
+        print("bias:", bias)
 
         data = {
             house: {
@@ -64,8 +66,7 @@ def LogisticRegression(file: str):
         write_json(data)
 
 
-
-# LogisticRegression with X_train, X_test, y_train, y_test
+# # LogisticRegression with X_train, X_test, y_train, y_test
 
 # def LogisticRegression(file: str):
 #     df = pd.read_csv(file)
@@ -100,6 +101,7 @@ def LogisticRegression(file: str):
 #             model, scaler = models[house]
 #             x = X_test[idx].reshape(1, -1)
 #             proba = model.predict(x)[0]
+#             print(proba)
 #             probas.append(proba)
 #         best_house_idx = np.argmax(probas)
 #         house_preds.append(houses[best_house_idx])

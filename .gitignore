@@ -220,3 +220,6 @@ text.txt
 # Python venv
 venv/
 myenv/
+
+
+houses.csv
