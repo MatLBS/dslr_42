@@ -218,5 +218,5 @@ __marimo__/
 text.txt
 
 # Python venv
-.venv/
-.myenv/
+venv/
+myenv/
