@@ -36,26 +36,23 @@ def write_json(new_data, filename="weights.json"):
 def LogisticRegression(file: str):
     df = pd.read_csv(file)
     imputer = SimpleImputer(strategy="mean")
+    scaler = StandardScaler()
 
     houses = ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"]
     y_houses = {house: np.array([1 if i == house else 0 for i in df["Hogwarts House"]]) for house in houses}
 
     X = df.drop(['Index', 'Hogwarts House',
-                  'First Name', 'Last Name',
-                  'Birthday', "Best Hand"], axis=1)
+                'First Name', 'Last Name',
+                'Birthday', "Best Hand", "Arithmancy", "Care of Magical Creatures"], axis=1)
 
     X = imputer.fit_transform(X)
+    X = scaler.fit_transform(X)
 
     for house in houses:
         y_house = y_houses[house]
-        scaler = StandardScaler()
-        X = scaler.fit_transform(X)
-        
+
         model = LogisticRegressionScratch(learning_rate=0.1, iterations=1000)
         weights, bias = model.fit(X, y_house)
-
-        print("type bias:", type(bias))
-        print("bias:", bias)
 
         data = {
             house: {
@@ -73,19 +70,20 @@ def LogisticRegression(file: str):
 #     imputer = SimpleImputer(strategy="mean")
 
 #     houses = ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"]
-#     y_houses = {house: np.array([1 if i == house else 0 for i in df["Hogwarts House"]]) for house in houses}
 
 #     X = df.drop(['Index', 'Hogwarts House',
 #                   'First Name', 'Last Name',
-#                   'Birthday', "Best Hand"], axis=1)
-
+#                   'Birthday', "Best Hand", "Arithmancy", "Care of Magical Creatures"], axis=1)
 #     X = imputer.fit_transform(X)
+
+#     X_train, X_test, y_train_global, y_test_global = train_test_split(
+#         X, df["Hogwarts House"].values, test_size=0.2, random_state=42
+#     )
 
 #     models = {}
 #     for house in houses:
-#         y_house = y_houses[house]
-#         X_train, X_test, y_train, y_test = train_test_split(X, y_house, test_size=0.2, random_state=42)
-        
+#         y_train = np.array([1 if i == house else 0 for i in y_train_global])
+
 #         scaler = StandardScaler()
 #         X_train = scaler.fit_transform(X_train)
 #         X_test = scaler.transform(X_test)
@@ -94,6 +92,7 @@ def LogisticRegression(file: str):
 #         model.fit(X_train, y_train)
 #         models[house] = (model, scaler)
 
+
 #     house_preds = []
 #     for idx in range(X_test.shape[0]):
 #         probas = []
@@ -101,10 +100,12 @@ def LogisticRegression(file: str):
 #             model, scaler = models[house]
 #             x = X_test[idx].reshape(1, -1)
 #             proba = model.predict(x)[0]
-#             print(proba)
 #             probas.append(proba)
 #         best_house_idx = np.argmax(probas)
 #         house_preds.append(houses[best_house_idx])
+
+#     accuracy = np.mean(house_preds == y_test_global)
+#     print(f"Model Accuracy: {accuracy:.2f}")
 
 
 def main():

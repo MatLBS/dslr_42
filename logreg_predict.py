@@ -12,19 +12,19 @@ def predict_houses(data_file: str, weights_file: str):
 
     df = pd.read_csv(data_file)
     imputer = SimpleImputer(strategy="mean")
+    scaler = StandardScaler()
 
     houses = ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"]
 
     X = df.drop(['Index', 'Hogwarts House',
-                  'First Name', 'Last Name',
-                  'Birthday', "Best Hand"], axis=1)
+                'First Name', 'Last Name',
+                'Birthday', "Best Hand", "Arithmancy", "Care of Magical Creatures"], axis=1)
 
     X = imputer.fit_transform(X)
-    scaler = StandardScaler()
     X = scaler.fit_transform(X)
     model = LogisticRegressionScratch(learning_rate=0.1, iterations=1000)
 
-    with open('weights.json', 'r') as f:
+    with open(weights_file, 'r') as f:
         data = json.load(f)
 
     house_preds = []
@@ -34,16 +34,15 @@ def predict_houses(data_file: str, weights_file: str):
             weights = data[house]["weights"]
             bias = data[house]["bias"]
             x = X[idx].reshape(1, -1)
-            proba = model.predict(x, weights, bias)
+            proba = model.predict_arguments(x, weights, bias)
             probas.append(proba)
         best_house_idx = np.argmax(probas)
         house_preds.append(houses[best_house_idx])
 
-        # Création du fichier houses.csv
-        with open("houses.csv", "w") as f:
-            f.write("Index,Hogwarts House\n")
-            for idx, house in enumerate(house_preds):
-                f.write(f"{idx},{house}\n")
+    with open("houses.csv", "w") as f:
+        f.write("Index,Hogwarts House\n")
+        for idx, house in enumerate(house_preds):
+            f.write(f"{idx},{house}\n")
 
 
 def main():

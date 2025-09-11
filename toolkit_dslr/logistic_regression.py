@@ -24,8 +24,7 @@ class LogisticRegressionScratch:
         self.weights = np.zeros(n)
 
         for _ in range(self.iterations):
-            z = np.dot(X, self.weights) + self.bias
-            h = self.sigmoid(z)
+            h = self.sigmoid(np.dot(X, self.weights) + self.bias)
 
             dw = (1/m) * np.dot(X.T, (h - y))
             db = (1/m) * np.sum(h - y)
@@ -37,10 +36,10 @@ class LogisticRegressionScratch:
 
         return self.weights, self.bias
 
-    # def predict(self, X):
-    #     """Make predictions"""
-    #     return self.sigmoid(np.dot(X, self.weights) + self.bias)
+    def predict(self, X):
+        """Make predictions"""
+        return (self.sigmoid(np.dot(X, self.weights) + self.bias) >= 0.5).astype(int)
 
-    def predict(self, X, weights, bias):
+    def predict_arguments(self, X, weights, bias):
         """Make predictions"""
         return self.sigmoid(np.dot(X, weights) + bias)
