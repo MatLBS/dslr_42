@@ -44,3 +44,29 @@ class LogisticRegressionScratch:
     def predict_arguments(self, X, weights, bias):
         """Make predictions"""
         return self.sigmoid(np.dot(X, weights) + bias)
+
+    def sgd(self, X, y, batch_size=1):
+        m, n = X.shape
+        self.weights = np.zeros(n + 1) 
+        X_bias = np.c_[np.ones((m, 1)), X]
+
+        for epoch in range(self.iterations):
+            indices = np.random.permutation(m)
+            X_shuffled = X_bias[indices]
+            y_shuffled = y[indices]
+
+            for i in range(0, m, batch_size):
+                X_batch = X_shuffled[i:i+batch_size]
+                y_batch = y_shuffled[i:i+batch_size]
+
+                h = self.sigmoid(np.dot(X_batch, self.weights))
+                dw = (1/m) * np.dot(X_batch.T, (h - y_batch))
+
+                self.weights -= self.lr * dw
+
+            h_all = self.sigmoid(np.dot(X_bias, self.weights))
+            cost = self.cost(h_all, y)
+            self.cost_history.append(cost)
+
+            if epoch % 100 == 0:
+                print(f"Epoch {epoch}, Cost: {cost}")

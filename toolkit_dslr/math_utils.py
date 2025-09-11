@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def calculate_count(column: pd.Series) -> int:
@@ -29,7 +30,7 @@ def calculate_std(column: pd.Series, mean) -> float:
     for i in column:
         sum += (i - mean) ** 2
     variance = sum / (len(column) - 1)
-    return variance ** 0.5
+    return variance, variance ** 0.5
 
 
 def find_min(column: pd.Series) -> float:
@@ -67,3 +68,22 @@ def calculate_percentile(column: pd.Series, percentile: int) -> float:
                      (data_sorted[f + 1] - data_sorted[f]) * c, 6)
     else:
         return round(data_sorted[f], 6)
+
+
+def calculate_skewness(column: pd.Series) -> float:
+   n = len(column)
+   mean = calculate_mean(column)
+   var, std = calculate_std(column, mean)
+
+   first_part = n / ((n - 1) * (n - 2))
+   second_part = np.sum(((column - mean) / std) ** 3)
+
+   return first_part * second_part
+
+
+def calculate_kurtosis(column: pd.Series) -> float:
+   n = len(column)
+   mean = calculate_mean(column)
+   var, std = calculate_std(column, mean)
+
+   return (1 / n) * np.sum(((column - mean) / std) ** 4) - 3
