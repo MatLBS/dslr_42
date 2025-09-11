@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import sys
@@ -7,13 +6,13 @@ from toolkit_dslr.logistic_regression import LogisticRegressionScratch
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
 import json
-from sklearn.model_selection import train_test_split
 
 
 def write_json(new_data, filename="weights.json"):
     """
     Ajoute ou met à jour les poids/biais d'une maison dans le fichier JSON.
-    new_data doit être de la forme {house: {...}} où house est le nom de la maison.
+    new_data doit être de la forme {house: {...}}
+    où house est le nom de la maison.
     """
     # Vérifie si le fichier existe, sinon crée un dict vide
     if os.path.isfile(filename):
@@ -39,11 +38,12 @@ def LogisticRegression(file: str):
     scaler = StandardScaler()
 
     houses = ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"]
-    y_houses = {house: np.array([1 if i == house else 0 for i in df["Hogwarts House"]]) for house in houses}
+    y_houses = {house: np.array([1 if i == house else 0 for i in
+                                 df["Hogwarts House"]]) for house in houses}
 
-    X = df.drop(['Index', 'Hogwarts House',
-                'First Name', 'Last Name',
-                'Birthday', "Best Hand", "Arithmancy", "Care of Magical Creatures"], axis=1)
+    X = df.drop(['Index', 'Hogwarts House', 'First Name', 'Last Name',
+                 'Birthday', 'Best Hand', 'Arithmancy',
+                 'Care of Magical Creatures'], axis=1)
 
     X = imputer.fit_transform(X)
     X = scaler.fit_transform(X)
@@ -71,9 +71,9 @@ def LogisticRegression(file: str):
 
 #     houses = ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"]
 
-#     X = df.drop(['Index', 'Hogwarts House',
-#                   'First Name', 'Last Name',
-#                   'Birthday', "Best Hand", "Arithmancy", "Care of Magical Creatures"], axis=1)
+#     X = df.drop(['Index', 'Hogwarts House', 'First Name', 'Last Name',
+#                   'Birthday', 'Best Hand', 'Arithmancy',
+#                   'Care of Magical Creatures'], axis=1)
 #     X = imputer.fit_transform(X)
 
 #     X_train, X_test, y_train_global, y_test_global = train_test_split(
@@ -87,7 +87,7 @@ def LogisticRegression(file: str):
 #         scaler = StandardScaler()
 #         X_train = scaler.fit_transform(X_train)
 #         X_test = scaler.transform(X_test)
-        
+
 #         model = LogisticRegressionScratch(learning_rate=0.1, iterations=1000)
 #         model.fit(X_train, y_train)
 #         models[house] = (model, scaler)

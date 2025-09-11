@@ -16,9 +16,9 @@ def predict_houses(data_file: str, weights_file: str):
 
     houses = ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"]
 
-    X = df.drop(['Index', 'Hogwarts House',
-                'First Name', 'Last Name',
-                'Birthday', "Best Hand", "Arithmancy", "Care of Magical Creatures"], axis=1)
+    X = df.drop(['Index', 'Hogwarts House', 'First Name',
+                 'Last Name', 'Birthday', 'Best Hand',
+                 'Arithmancy', 'Care of Magical Creatures'], axis=1)
 
     X = imputer.fit_transform(X)
     X = scaler.fit_transform(X)

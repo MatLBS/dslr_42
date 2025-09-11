@@ -38,7 +38,8 @@ class LogisticRegressionScratch:
 
     def predict(self, X):
         """Make predictions"""
-        return (self.sigmoid(np.dot(X, self.weights) + self.bias) >= 0.5).astype(int)
+        return (self.sigmoid(np.dot(X, self.weights)
+                             + self.bias) >= 0.5).astype(int)
 
     def predict_arguments(self, X, weights, bias):
         """Make predictions"""
