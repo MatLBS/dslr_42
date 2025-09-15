@@ -6,7 +6,6 @@ from toolkit_dslr.logistic_regression import LogisticRegressionScratch
 from toolkit_dslr.lr_utils import write_json
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
-import json
 
 
 def LogisticRegression(file: str):

@@ -71,19 +71,16 @@ def calculate_percentile(column: pd.Series, percentile: int) -> float:
 
 
 def calculate_skewness(column: pd.Series) -> float:
-   n = len(column)
-   mean = calculate_mean(column)
-   var, std = calculate_std(column, mean)
-
-   first_part = n / ((n - 1) * (n - 2))
-   second_part = np.sum(((column - mean) / std) ** 3)
-
-   return first_part * second_part
+    n = len(column)
+    mean = calculate_mean(column)
+    var, std = calculate_std(column, mean)
+    first_part = n / ((n - 1) * (n - 2))
+    second_part = np.sum(((column - mean) / std) ** 3)
+    return first_part * second_part
 
 
 def calculate_kurtosis(column: pd.Series) -> float:
-   n = len(column)
-   mean = calculate_mean(column)
-   var, std = calculate_std(column, mean)
-
-   return (1 / n) * np.sum(((column - mean) / std) ** 4) - 3
+    n = len(column)
+    mean = calculate_mean(column)
+    var, std = calculate_std(column, mean)
+    return (1 / n) * np.sum(((column - mean) / std) ** 4) - 3
