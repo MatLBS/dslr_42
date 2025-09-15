@@ -3,33 +3,10 @@ import pandas as pd
 import sys
 import os
 from toolkit_dslr.logistic_regression import LogisticRegressionScratch
+from toolkit_dslr.lr_utils import write_json
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
 import json
-
-
-def write_json(new_data, filename="weights.json"):
-    """
-    Ajoute ou met à jour les poids/biais d'une maison dans le fichier JSON.
-    new_data doit être de la forme {house: {...}}
-    où house est le nom de la maison.
-    """
-    # Vérifie si le fichier existe, sinon crée un dict vide
-    if os.path.isfile(filename):
-        with open(filename, 'r') as file:
-            try:
-                file_data = json.load(file)
-            except json.JSONDecodeError:
-                file_data = {}
-    else:
-        file_data = {}
-
-    # Ajoute ou met à jour la maison (clé du dict)
-    file_data.update(new_data)
-
-    # Écrit le dict complet dans le fichier
-    with open(filename, 'w') as file:
-        json.dump(file_data, file, indent=4)
 
 
 def LogisticRegression(file: str):
@@ -65,7 +42,7 @@ def LogisticRegression(file: str):
 
 def main():
     try:
-        assert len(sys.argv) > 1, "File path is missing"
+        assert len(sys.argv) == 2, "You must provide the dataset file path"
         assert os.path.exists(sys.argv[1]), "The file does not exists"
         LogisticRegression(sys.argv[1])
     except AssertionError as error:

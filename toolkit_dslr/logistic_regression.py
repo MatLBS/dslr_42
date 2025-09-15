@@ -49,6 +49,7 @@ class LogisticRegressionScratch:
         m, n = X.shape
         self.weights = np.zeros(n + 1) 
         X_bias = np.c_[np.ones((m, 1)), X]
+        self.cost_history = []
 
         for epoch in range(self.iterations):
             indices = np.random.permutation(m)
@@ -59,14 +60,11 @@ class LogisticRegressionScratch:
                 X_batch = X_shuffled[i:i+batch_size]
                 y_batch = y_shuffled[i:i+batch_size]
 
-                h = self.sigmoid(np.dot(X_batch, self.weights))
-                dw = (1/m) * np.dot(X_batch.T, (h - y_batch))
+                h_batch = self.sigmoid(np.dot(X_batch, self.weights))
+                dw = (1/batch_size) * np.dot(X_batch.T, (h_batch - y_batch))
 
                 self.weights -= self.lr * dw
 
             h_all = self.sigmoid(np.dot(X_bias, self.weights))
             cost = self.cost(h_all, y)
             self.cost_history.append(cost)
-
-            if epoch % 100 == 0:
-                print(f"Epoch {epoch}, Cost: {cost}")

@@ -47,7 +47,7 @@ def predict_houses(data_file: str, weights_file: str):
 
 def main():
     try:
-        assert len(sys.argv) > 2, "File path is missing"
+        assert len(sys.argv) == 3, "You must provide the dataset and weights file paths"
         assert os.path.exists(sys.argv[1]), "The file does not exists"
         assert os.path.exists(sys.argv[2]), "The file does not exists"
         predict_houses(sys.argv[1], sys.argv[2])

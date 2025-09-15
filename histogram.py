@@ -5,7 +5,7 @@ from toolkit_dslr.graph_utils import draw_histogram
 
 def main():
     try:
-        assert len(sys.argv) > 1, "File path is missing"
+        assert len(sys.argv) == 2, "You must provide the dataset file path"
         assert os.path.exists(sys.argv[1]), "The file does not exists"
         draw_histogram(sys.argv[1])
 
