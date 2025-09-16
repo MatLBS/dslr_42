@@ -1,5 +1,7 @@
 import os
 import json
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
 
 
 def write_json(new_data, filename="weights.json"):
@@ -24,3 +26,18 @@ def write_json(new_data, filename="weights.json"):
     # Écrit le dict complet dans le fichier
     with open(filename, 'w') as file:
         json.dump(file_data, file, indent=4)
+
+
+def preprocess_data(df):
+
+    imputer = SimpleImputer(strategy="mean")
+    scaler = StandardScaler()
+
+    X = df.drop(['Index', 'Hogwarts House', 'First Name', 'Last Name',
+                 'Birthday', 'Best Hand', 'Arithmancy',
+                 'Care of Magical Creatures'], axis=1)
+
+    X = imputer.fit_transform(X)
+    X = scaler.fit_transform(X)
+
+    return X

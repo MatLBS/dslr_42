@@ -2,7 +2,7 @@ import pandas as pd
 from toolkit_dslr.math_utils import (calculate_count, calculate_mean,
                                      calculate_std, find_min, find_max,
                                      calculate_percentile, calculate_skewness,
-                                     calculate_kurtosis)
+                                     calculate_kurtosis, calculate_range)
 
 
 def describe_column(column: pd.Series) -> pd.Series:
@@ -22,6 +22,7 @@ def describe_column(column: pd.Series) -> pd.Series:
     max = find_max(column)
     skew = calculate_skewness(column)
     kurt = calculate_kurtosis(column)
+    range = calculate_range(column)
     column_described["count"] = count
     column_described["mean"] = mean
     column_described["var"] = var
@@ -33,6 +34,7 @@ def describe_column(column: pd.Series) -> pd.Series:
     column_described["max"] = max
     column_described["skew"] = skew
     column_described["kurtosis"] = kurt
+    column_described["range"] = range
 
     return column_described
 

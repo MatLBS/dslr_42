@@ -84,3 +84,10 @@ def calculate_kurtosis(column: pd.Series) -> float:
     mean = calculate_mean(column)
     var, std = calculate_std(column, mean)
     return (1 / n) * np.sum(((column - mean) / std) ** 4) - 3
+
+
+def calculate_range(column: pd.Series) -> float:
+    """
+    Calculate the range of a pandas Series.
+    """
+    return find_max(column) - find_min(column)

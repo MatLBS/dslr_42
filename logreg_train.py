@@ -3,26 +3,16 @@ import pandas as pd
 import sys
 import os
 from toolkit_dslr.logistic_regression import LogisticRegressionScratch
-from toolkit_dslr.lr_utils import write_json
-from sklearn.preprocessing import StandardScaler
-from sklearn.impute import SimpleImputer
+from toolkit_dslr.lr_utils import write_json, preprocess_data
 
 
 def LogisticRegression(file: str):
     df = pd.read_csv(file)
-    imputer = SimpleImputer(strategy="mean")
-    scaler = StandardScaler()
 
     houses = ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"]
     y_houses = {house: np.array([1 if i == house else 0 for i in
                                  df["Hogwarts House"]]) for house in houses}
-
-    X = df.drop(['Index', 'Hogwarts House', 'First Name', 'Last Name',
-                 'Birthday', 'Best Hand', 'Arithmancy',
-                 'Care of Magical Creatures'], axis=1)
-
-    X = imputer.fit_transform(X)
-    X = scaler.fit_transform(X)
+    X = preprocess_data(df)
 
     for house in houses:
         y_house = y_houses[house]
