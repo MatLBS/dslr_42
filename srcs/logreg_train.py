@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import sys
 import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from toolkit_dslr.logistic_regression import LogisticRegressionScratch
 from toolkit_dslr.lr_utils import write_json, preprocess_data
 

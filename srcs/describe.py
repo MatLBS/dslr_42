@@ -1,15 +1,14 @@
-import os
 import sys
-from toolkit_dslr.graph_utils import draw_pair_plot
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+from toolkit_dslr.describe_utils import describe
 
 
 def main():
     try:
         assert len(sys.argv) == 2, "You must provide the dataset file path"
         assert os.path.exists(sys.argv[1]), "The file does not exists"
-
-        draw_pair_plot(sys.argv[1])
-
+        print(describe(sys.argv[1]))
     except AssertionError as error:
         print(AssertionError.__name__ + ":", error)
 
