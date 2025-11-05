@@ -41,13 +41,13 @@ pip install -r requirements.txt
 ## Dataset preview
 
 ```bash
-python describe.py datasets/dataset_train.csv
+python srcs/describe.py datasets/dataset_train.csv
 ```
 
 <img width="1606" height="197" alt="Screenshot from 2025-09-25 16-27-34" src="https://github.com/user-attachments/assets/2a1a4527-a1b0-4fff-bb24-edfb59750437" />
 
 ```bash
-python histogram.py datasets/dataset_train.csv
+python srcs/histogram.py datasets/dataset_train.csv
 ```
 
 <img width="1420" height="1097" alt="Screenshot from 2025-09-25 16-28-04" src="https://github.com/user-attachments/assets/828dc78b-f87b-42da-852b-b45830e26aab" />
@@ -57,12 +57,12 @@ python histogram.py datasets/dataset_train.csv
 ## Training a Logistic Regression model
 
 ```bash
-python logreg_train.py datasets/dataset_train.csv
+python srcs/logreg_train.py datasets/dataset_train.csv
 ```
 This will create a file `weights.json` which will be used for predictions.
 
 ```bash
-python logreg_predict.py datasets/dataset_test.csv weights.json
+python srcs/logreg_predict.py datasets/dataset_test.csv weights.json
 ```
 This creates a file `houses.csv` with a predicted house for every future student.
 
@@ -109,13 +109,13 @@ pip install -r requirements.txt
 ## Aperçu du jeu de données
 
 ```bash
-python describe.py datasets/dataset_train.csv
+python srcs/describe.py datasets/dataset_train.csv
 ```
 
 <img width="1606" height="197" alt="Screenshot from 2025-09-25 16-27-34" src="https://github.com/user-attachments/assets/2a1a4527-a1b0-4fff-bb24-edfb59750437" />
 
 ```bash
-python histogram.py datasets/dataset_train.csv
+python srcs/histogram.py datasets/dataset_train.csv
 ```
 
 <img width="1420" height="1097" alt="Screenshot from 2025-09-25 16-28-04" src="https://github.com/user-attachments/assets/828dc78b-f87b-42da-852b-b45830e26aab" />
@@ -125,12 +125,12 @@ python histogram.py datasets/dataset_train.csv
 ## Entraînement d’un modèle de régression logistique
 
 ```bash
-python logreg_train.py datasets/dataset_train.csv
+python srcs/logreg_train.py datasets/dataset_train.csv
 ```
 Cela créera un fichier `weights.json` qui sera utilisé pour les prédictions.
 
 ```bash
-python logreg_predict.py datasets/dataset_test.csv weights.json
+python srcs/logreg_predict.py datasets/dataset_test.csv weights.json
 ```
 Cela créera un fichier `houses.csv` avec une maison prédite pour chaque futur étudiant.
 
